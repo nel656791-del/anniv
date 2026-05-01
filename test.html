@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<style>
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+  body{
+    font-family:'Patrick Hand', cursive;
+    min-height:100vh;
+    color:white;
+    overflow-x:hidden;
+  }
+
+  /* 🌌 Background */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url("image/background.jpg") center/cover no-repeat;
+    filter:brightness(0.35) blur(1px);
+    z-index:-2;
+  }
+
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    z-index:-1;
+  }
+
+  .container{
+    width:100%;
+    max-width:430px;
+    margin:0 auto;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+  }
+
+  /* 🍸 Glass Effect */
+  .glass{
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.15);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:0 15px 40px rgba(0,0,0,0.5);
+    border-radius:25px;
+  }
+
+  /* 🍔 Burger */
+  .topbar{
+    position:fixed;
+    top:20px;
+    left:20px;
+    z-index:1002;
+  }
+
+  .burger{
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:5px;
+    cursor:pointer;
+  }
+
+  .burger span{
+    width:20px;
+    height:2px;
+    background:white;
+    border-radius:10px;
+  }
+
+  /* 📂 Side Menu */
+  .side-menu{
+    position:fixed;
+    top:0;
+    right:-260px;
+    width:250px;
+    height:100vh;
+    padding:90px 20px 20px;
+    transition:0.35s ease;
+    z-index:1000;
+
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-left:1px solid rgba(255,255,255,0.1);
+    box-shadow:-10px 0 30px rgba(0,0,0,0.4);
+  }
+
+  .side-menu.active{
+    right:0;
+  }
+
+  .menu-btn{
+    text-decoration:none;
+    color:white;
+    padding:14px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:20px;
+    margin-bottom:12px;
+    background:rgba(255,255,255,0.08);
+    transition:0.3s;
+  }
+
+  .menu-btn:hover{
+    transform:scale(1.03);
+    background:rgba(255,255,255,0.12);
+  }
+
+  .menu-btn img{
+    width:28px;
+    height:28px;
+  }
+
+  /* 🖼 Logo */
+  .top-logo{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:20px;
+    border:3px solid rgba(255,255,255,0.2);
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+  }
+
+  .dashboard-card{
+    width:100%;
+    padding:35px 25px;
+    margin-bottom:20px;
+  }
+
+  .message-card{
+    width:100%;
+    padding:25px;
+    text-align:left;
+  }
+
+  .title{
+    font-size:22px;
+    margin-top:10px;
+  }
+
+  .premium-label{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:999px;
+    font-size:12px;
+    background:rgba(255,255,255,0.1);
+    margin-bottom:15px;
+  }
+
+  .typing{
+    font-size:18px;
+    line-height:1.6;
+    min-height:120px;
+  }
+
+  .cursor{
+    animation:blink 0.7s infinite;
+  }
+
+  @keyframes blink{
+    50%{
+      opacity:0;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- 🍔 Burger -->
+<div class="topbar">
+  <div class="burger glass" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<!-- 📂 Side Menu -->
+<div class="side-menu" id="sideMenu">
+
+  <a href="https://your-gallery-link.com" class="menu-btn">
+    <img src="image/gallery.png">
+    Gallery
+  </a>
+
+  <a href="https://your-anniversary-link.com" class="menu-btn">
+    <img src="image/aniversary.png">
+    Anniversary Message
+  </a>
+
+  <a href="https://your-timeline-link.com" class="menu-btn">
+    <img src="image/story.png">
+    Our Story
+  </a>
+
+  <a href="https://your-loveletter-link.com" class="menu-btn">
+    <img src="image/loveletter.png">
+    Love Letter
+  </a>
+
+  <a href="https://your-futureplans-link.com" class="menu-btn">
+    <img src="image/futureplans.png">
+    Future Plans
+  </a>
+
+  <a href="https://your-notes-link.com" class="menu-btn">
+    <img src="image/notes.png">
+    Notes
+  </a>
+
+  <a href="https://your-dateideas-link.com" class="menu-btn">
+    <img src="image/dateideas.png">
+    Date Ideas
+  </a>
+
+</div>
+
+<!-- 💖 Main Content -->
+<div class="container">
+
+  <img src="image/logo.png" class="top-logo">
+
+  <div class="dashboard-card glass">
+    <h1>JANELL DIZON</h1>
+    <p>April 29, 2026</p>
+    <div class="title">ANNIVERSARY</div>
+  </div>
+
+  <div class="message-card glass">
+    <div class="premium-label">HI ADII</div>
+
+    <h2>HAPPY ANNIVERSARY</h2>
+
+    <div class="typing">
+      <span id="text"></span>
+      <span class="cursor">|</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const message =
+"Every moment with you feels special, and I can’t believe how lucky I am to have you in my life. Thank you for always being there, for understanding me, and for making even my worst days feel lighter just by being with you. Happy anniversary my Adii, I’m excited for our future together.";
+
+let i = 0;
+
+function typeText() {
+  if (i < message.length) {
+    document.getElementById("text").innerHTML += message.charAt(i);
+    i++;
+    setTimeout(typeText, 40);
+  }
+}
+
+typeText();
+
+function toggleMenu() {
+  document.getElementById("sideMenu").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
